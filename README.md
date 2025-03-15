@@ -36,4 +36,4 @@ and all of the recommended packages from the ones above.
 For a fast file modifying, I recommend to modify the files **while the server is running**. If you want to modify `server.cpp` you will have to compile everything again
 
 ## License
-This project has a [LICENSE](LICENSE).
+This project has an [Apache 2.0 LICENSE](LICENSE).
