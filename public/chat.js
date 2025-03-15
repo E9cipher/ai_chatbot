@@ -15,8 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let chatbotResponses = {}; // Store JSON responses
 
+    // JSON file path
+    const json_file = "responses.json"
+
     // Get JSON responses
-    fetch("responses.json")
+    fetch(json_file)
         .then(response => response.json())
         .then(data => {
             chatbotResponses = data;
