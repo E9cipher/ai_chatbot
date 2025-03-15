@@ -19,11 +19,27 @@ and all of the recommended packages from the ones above. Crow must be installed 
 1. Clone **this** git repo
    
         git clone https://github.com/E9cipher/ai_chatbot.git
-   or download the ZIP folder 
-2. Clone **Crow** repo
+   or download the ZIP folder
+3. Install dependences
+   **Ubuntu/Debian**
 
-       git cline https://github.com/CrowCpp/Crow.git
-3. Run these instructions
+       apt update && apt install gcc gcc-12 g++ build-essential libasio-dev nlohmann-json3-dev cmake
+   **Arch Linux**
+   
+       pacman -S gcc gcc-12 g++ build-essential libasio-dev nlohmann-json3-dev cmake
+   **Fedora**
+   
+       dnf install gcc gcc-12 build-essential libasio-dev nlohmann-json3-dev cmake
+
+4. Clone **Crow** repo
+
+       git clone https://github.com/CrowCpp/Crow.git
+       cd Crow
+       mkdir build && cd build
+       cmake .. && make
+       make install
+       
+5. Run these instructions
 
        mkdir info 
        mv README.md backend/README.md frontend/README.md info/
@@ -33,10 +49,11 @@ and all of the recommended packages from the ones above. Crow must be installed 
        cmake ../backend
        make
        ./chatbot
+   
    You must make sure you have the requirements shown above. Else, the project won't serve properly. Even though it seems strange, you **must** remove the `build` directory and create it again.
    Exit process with <kbd>Ctrl</kbd> <kbd>C</kbd>.
    **Note:** `make` usually takes time if it's your first installation. To speed this process, instead of running simply `make` run `make -j$(nproc)`. If you do this, note that all processes will freeze completely
-4. Open a browser and navigate to `http://localhost:8080/`.
+6. Open a browser and navigate to `http://localhost:8080/`.
 
 ## Modifying Files
 For a fast file modifying, I recommend to modify the files **while the server is running**. If you want to modify `server.cpp` you will have to compile everything again
