@@ -13,14 +13,20 @@ You must have the following packages installed so that the project can serve and
     libasio-dev
     nlohmann-json3-dev
     cmake
-and all of the recommended packages from the ones above.
+    Crow
+and all of the recommended packages from the ones above. Crow must be installed through git as shown below in the installation section.
 ## Installation (linux)
-1. Clone git repo
+1. Clone **this** git repo
    
         git clone https://github.com/E9cipher/ai_chatbot.git
-   or download the ZIP folder
+   or download the ZIP folder 
+2. Clone **Crow** repo
+
+       git cline https://github.com/CrowCpp/Crow.git
 3. Run these instructions
 
+       mkdir info 
+       mv README.md backend/README.md frontend/README.md info/
        cd ai_chatbot/
        rm -rf build
        mkdir build && cd build
@@ -30,7 +36,7 @@ and all of the recommended packages from the ones above.
    You must make sure you have the requirements shown above. Else, the project won't serve properly. Even though it seems strange, you **must** remove the `build` directory and create it again.
    Exit process with <kbd>Ctrl</kbd> <kbd>C</kbd>.
    **Note:** `make` usually takes time if it's your first installation. To speed this process, instead of running simply `make` run `make -j$(nproc)`. If you do this, note that all processes will freeze completely
-5. Open a browser and navigate to `http://localhost:8080/`.
+4. Open a browser and navigate to `http://localhost:8080/`.
 
 ## Modifying Files
 For a fast file modifying, I recommend to modify the files **while the server is running**. If you want to modify `server.cpp` you will have to compile everything again
