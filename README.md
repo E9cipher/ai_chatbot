@@ -19,16 +19,18 @@ and all of the recommended packages from the ones above.
    
         git clone https://github.com/E9cipher/ai_chatbot.git
    or download the ZIP folder
-3. Navigate to `build/` and:
-   
-       cd backend
+3. Run these instructions
+
+       cd ai_chatbot/
+       rm -rf build
        mkdir build && cd build
        cmake ../backend
        make
        ./chatbot
-   You must make sure you have the requirements shown above. Else, the project won't serve properly.
+   You must make sure you have the requirements shown above. Else, the project won't serve properly. Even though it seems strange, you **must** remove the `build` directory and create it again.
+   Exit process with <kbd>Ctrl</kbd> <kbd>C</kbd>.
    **Note:** `make` usually takes time if it's your first installation. To speed this process, instead of running simply `make` run `make -j$(nproc)`. If you do this, note that all processes will freeze completely
-4. Open a browser and navigate to `http://localhost:8080/`.
+5. Open a browser and navigate to `http://localhost:8080/`.
 
 ## Modifying Files
 For a fast file modifying, I recommend to modify the files **while the server is running**. If you want to modify `server.cpp` you will have to compile everything again
