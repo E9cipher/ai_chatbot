@@ -5,6 +5,8 @@
     "information": "We provide AI chatbot services. Let me know how I can assist you!",
     "what's your name": "I do not have a name but you can call me Chatbot.",
     "bye": "Goodbye!",
-    "hi": "Hello there! How can I help?",
-    "how are you doing": "Good"
+    "hi": "Hello there! What's the matter today?",
+    "how are you doing": "Good",
+    "how much is 2 plus 2?": "It's 4",
+    "good afternoon": "Same here! How can I help you?"
 }
