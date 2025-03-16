@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let chatbotResponses = {};
 
-    // Load training data
+    // Load existing training data
     fetch("responses.json")
         .then(response => response.json())
         .then(data => {
@@ -15,44 +15,30 @@ document.addEventListener("DOMContentLoaded", function () {
             displayResponses(); // Show data
         })
         .catch(error => console.error("Error loading chatbot responses:", error));
-    
+
     // Capitalize function
     function capitalize(val) {
         return String(val).charAt(0).toUpperCase() + String(val).slice(1);
     }
 
-    // Display responses
+    // Display all responses
     function displayResponses() {
-        // responseList.innerHTML = "";
+        responseList.innerHTML = ""; // Clear before displaying
         for (let key in chatbotResponses) {
             const item = document.createElement("tr");
-            item.innerHTML = `<td><span>User:</span>${capitalize(key)}</td> <td><span>Bot:</span> ${capitalize(chatbotResponses[key])}</td>`;
+            item.innerHTML = `<td><span>User:</span> ${capitalize(key)}</td> <td><span>Bot:</span> ${capitalize(chatbotResponses[key])}</td>`;
             responseList.appendChild(item);
         }
     }
 
-    function displayNew() {
-        fetch("responses.json")
-            .then(response => response.json())
-            .then(data => {
-                if (data.length === 0) {
-                    console.log("No responses found.");
-                    return;
-                }
-                const lastResponse = data[data.length - 1]; // Get last response
-                console.log("Last response:", lastResponse);
-    
-                // Display it in UI
-                const responseList = document.getElementById("response-list");
-                if (responseList) {
-                    responseList.innerHTML = `<p><strong>${lastResponse.user}</strong>: ${lastResponse.message}</p>`;
-                }
-            })
-            .catch(error => console.error("Error loading responses:", error));
+    // Display only the last added response
+    function displayNew(user, bot) {
+        const item = document.createElement("tr");
+        item.innerHTML = `<td><span>User:</span> ${capitalize(user)}</td> <td><span>Bot:</span> ${capitalize(bot)}</td>`;
+        responseList.appendChild(item);
     }
-    
 
-    // Handle form
+    // Handle form submission
     trainButton.addEventListener("click", function () {
         let userText = userInput.value.trim().toLowerCase();
         let botText = botResponse.value.trim();
@@ -62,21 +48,28 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Update responses.json
+        // Update chatbotResponses without replacing existing ones
         chatbotResponses[userText] = botText;
-        displayNew();
+        displayNew(userText, botText);
 
-        // Send to php
-        fetch("php/save_responses.php", {
+        // Send updated JSON to PHP for saving
+        fetch("/ai_chatbot/public/save_responses.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(chatbotResponses),
         })
-            .then(response => response.text())
-            .then(data => console.log("Training data saved:", data))
-            .catch(error => console.error("Error saving data:", error));
+        .then(response => response.text())
+        .then(data => {
+            console.log("Server Response:", data);
+            if (data.includes("SUCCESS")) {
+                console.log("✅ Data saved successfully!");
+            } else {
+                console.error("❌ ERROR: PHP did not return success.");
+            }
+        })
+        .catch(error => console.error("❌ Fetch error:", error));
 
-        // Clear inputs
+        // Clear input fields
         userInput.value = "";
         botResponse.value = "";
     });
