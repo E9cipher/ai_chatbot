@@ -60,3 +60,6 @@ For a fast file modifying, I recommend to modify the files **while the server is
 
 ## License
 This project has an [Apache 2.0 LICENSE](LICENSE).
+
+## Contributions
+All contributions especially to `responses.json` are very welcome
