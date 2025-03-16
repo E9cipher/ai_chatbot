@@ -170,6 +170,82 @@ body {
     object-fit: cover;
 }
 
+/* TRAINING FORM */
+body h1 {
+    font-family: 'Noticia Text', serif;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 20px;
+}
+body #train-section {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+}
+
+body #train-section h2,
+h3 {
+    font-family: 'Noticia Text', serif;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+body #train-section form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+body #train-section form input {
+    padding: 10px;
+    border: 3px solid transparent;
+    outline: none;
+    font-size: 16px;
+    transition: .3s ease-in-out all;
+    padding: 5px;
+    border-radius: 3px;
+    font-family: 'Andada Pro', serif;
+    font-weight: 400;
+}
+
+body #train-section form input:focus {
+    border-color: #007bff;
+}
+
+body #train-section form button {
+    grid-column: span 2;
+    background-color: #007bff;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px 5px;
+    transition: .3s ease-in-out all;
+    font-family: 'Andada Pro', serif;
+}
+
+body #train-section form button:hover {
+    background-color: #0056b3;
+}
+
+body #train-section ul#response-list {
+    list-style: none;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body #train-section ul#response-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
 /* KEYFRAMES */
 @keyframes fadein {
     from {

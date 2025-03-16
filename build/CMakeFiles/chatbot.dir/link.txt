@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/chatbot.dir/server.cpp.o -o chatbot 
+/usr/bin/g++ CMakeFiles/chatbot.dir/server.cpp.o -o chatbot 

@@ -73,15 +73,15 @@ CMakeFiles/chatbot.dir/server.cpp.o: CMakeFiles/chatbot.dir/flags.make
 CMakeFiles/chatbot.dir/server.cpp.o: /home/enricgalera/ai_chatbot/backend/server.cpp
 CMakeFiles/chatbot.dir/server.cpp.o: CMakeFiles/chatbot.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/enricgalera/ai_chatbot/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/chatbot.dir/server.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/chatbot.dir/server.cpp.o -MF CMakeFiles/chatbot.dir/server.cpp.o.d -o CMakeFiles/chatbot.dir/server.cpp.o -c /home/enricgalera/ai_chatbot/backend/server.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/chatbot.dir/server.cpp.o -MF CMakeFiles/chatbot.dir/server.cpp.o.d -o CMakeFiles/chatbot.dir/server.cpp.o -c /home/enricgalera/ai_chatbot/backend/server.cpp
 
 CMakeFiles/chatbot.dir/server.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/chatbot.dir/server.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/enricgalera/ai_chatbot/backend/server.cpp > CMakeFiles/chatbot.dir/server.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/enricgalera/ai_chatbot/backend/server.cpp > CMakeFiles/chatbot.dir/server.cpp.i
 
 CMakeFiles/chatbot.dir/server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/chatbot.dir/server.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/enricgalera/ai_chatbot/backend/server.cpp -o CMakeFiles/chatbot.dir/server.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/enricgalera/ai_chatbot/backend/server.cpp -o CMakeFiles/chatbot.dir/server.cpp.s
 
 # Object files for target chatbot
 chatbot_OBJECTS = \

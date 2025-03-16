@@ -1,1 +1,22 @@
+# Ignore visual studio code files
 /.vscode
+### CMAKE FILES ###
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+# Ignore the executable
+chatbot
+# Ignore the executable in the build directory
+build/chatbot
+# Ignore the object files
+*.o
+# Ignore the cmake cache
+CMakeCache.txt
+# Ignore the cmake install file
+cmake_install.cmake
+# Ignore the makefile
+Makefile
+# Ignore the build directory
+build/
+# Ignore log files
+*.log
