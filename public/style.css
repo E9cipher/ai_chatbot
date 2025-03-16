@@ -181,12 +181,11 @@ body #train-section {
     display: block;
     margin: 0 auto;
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px;
     padding: 20px;
 }
 
-body #train-section h2,
-h3 {
+body #train-section h2, h3 {
     font-family: 'Noticia Text', serif;
     font-weight: 400;
     text-align: center;
@@ -230,20 +229,48 @@ body #train-section form button:hover {
     background-color: #0056b3;
 }
 
-body #train-section ul#response-list {
-    list-style: none;
+body #train-section #response-list {
     padding: 0;
     font-family: 'Roboto', sans-serif;
+    width: 100%;
 }
 
-body #train-section ul#response-list li {
+body #train-section #response-list tr {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
     padding: 10px;
     border: 1px solid #ddd;
     margin-bottom: 10px;
     font-family: 'Roboto', sans-serif;
+}
+
+body #train-section #response-list th {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+body #train-section #response-list td {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    display: flex;
+    justify-content: flex-start;
+    width: 50%;
+    overflow-x: auto;
+}
+
+body #train-section #response-list td span {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+body #train-section #respose-list li td#text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+body #train-section #response-list li td#answer {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
 }
 
 /* KEYFRAMES */
