@@ -1,3 +1,0 @@
-/home/enricgalera/ai_chatbot/build/CMakeFiles/chatbot.dir
-/home/enricgalera/ai_chatbot/build/CMakeFiles/edit_cache.dir
-/home/enricgalera/ai_chatbot/build/CMakeFiles/rebuild_cache.dir
