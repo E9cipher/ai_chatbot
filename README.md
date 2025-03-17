@@ -4,64 +4,7 @@ This Chatbot is (will be) especially designed for custom responses and to learn 
 ## Usage
 Simple. Just prompt a question and the chatbot will check if it has that answer. If so, he will respond. Else it will ask you to explain.
 
-[## Requirements
-You must have the following packages installed so that the project can serve and work properly:
-
-    gcc
-    gcc-12
-    g++
-    build-essential
-    libasio-dev
-    nlohmann-json3-dev
-    cmake
-    Crow
-and all of the recommended packages from the ones above. Crow must be installed through git as shown below in the installation section.
-
-## Installation (linux)
-1. Clone **this** git repo
-   
-        git clone https://github.com/E9cipher/ai_chatbot.git
-   or download the ZIP folder
-3. Install dependences
-   **Ubuntu/Debian**
-
-       apt update && apt install gcc gcc-12 g++ build-essential libasio-dev nlohmann-json3-dev cmake
-   **Arch Linux**
-   
-       pacman -S gcc gcc-12 g++ build-essential libasio-dev nlohmann-json3-dev cmake
-   **Fedora**
-   
-       dnf install gcc gcc-12 build-essential libasio-dev nlohmann-json3-dev cmake
-
-4. Clone **Crow** repo
-
-       git clone https://github.com/CrowCpp/Crow.git
-       cd Crow
-       mkdir build && cd build
-       cmake .. && make
-       make install
-       
-5. Run these instructions
-
-       mkdir info 
-       mv README.md backend/README.md frontend/README.md info/
-       cd ai_chatbot/
-       rm -rf build
-       mkdir build && cd build
-       cmake ../backend
-       make
-       ./chatbot
-   
-   You must make sure you have the requirements shown above. Else, the project won't serve properly. Even though it seems strange, you **must** remove the `build` directory and create it again.
-   Exit process with <kbd>Ctrl</kbd> <kbd>C</kbd>.
-   **Note:** `make` usually takes time if it's your first installation. To speed this process, instead of running simply `make` run `make -j$(nproc)`. If you do this, note that all processes will freeze completely
-6. Open a browser and navigate to `http://localhost:8080/`.
-
-## Modifying Files
-For a fast file modifying, I recommend to modify the files **while the server is running**. If you want to modify `server.cpp` you will have to compile everything again
-.]: #
-
-## MORE CHANGES WILL BE COMING SOON WITH ITS EXPLANATIONS
+## MORE CHANGES WILL BE COMING SOON WITH ITS EXPLANATIONS. THIS REPOSITORY IS NOW BLANK, AS IT'S BEEN TESTING LOCALHOST
 
 ## Code of conduct
 This project has a [Code of Conduct](CODE_OF_CONDUCT.md)
