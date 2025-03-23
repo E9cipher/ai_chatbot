@@ -4,7 +4,7 @@ This Chatbot is (will be) especially designed for custom responses and to learn 
 ## Usage
 Simple. Just prompt a question and the chatbot will check if it has that answer. If so, he will respond. Else it will ask you to explain.
 
-## MORE CHANGES WILL BE COMING SOON WITH ITS EXPLANATIONS. THIS REPOSITORY IS NOW BLANK, AS IT'S BEEN TESTING LOCALHOST
+## MORE CHANGES WILL BE COMING SOON WITH ITS EXPLANATIONS. THIS REPOSITORY IS NOW EMPTY, AS IT'S BEEN TESTING LOCALHOST
 
 ## Code of conduct
 This project has a [Code of Conduct](CODE_OF_CONDUCT.md)
