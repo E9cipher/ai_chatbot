@@ -1,0 +1,8 @@
+# This .gitignore is appropriate for repositories deployed to GitHub Pages and using
+# a Gemfile as specified at https://github.com/github/pages-gem#conventional
+# Ignore info.pdf, it's dummy text and no-one cares about it
+/info.pdf
+# Also Ignore confirm.php by now, we'll add it later
+/confirm.php
+# Ignore the styles.css.map file
+/styles.css.map
