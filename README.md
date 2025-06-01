@@ -52,7 +52,7 @@ and all of the recommended packages from the ones above. Crow must be installed 
    
    You must make sure you have the requirements shown above. Else, the project won't serve properly. Even though it seems strange, you **must** remove the `build` directory and create it again.
    Exit process with <kbd>Ctrl</kbd> <kbd>C</kbd>.
-   **Note:** `make` usually takes time if it's your first installation. To speed this process, instead of running simply `make` run `make -j$(nproc)`. If you do this, note that all processes will freeze completely
+   **Note:** `make` usually takes time if it's your first installation. To speed this process, instead of running simply `make` run `make -j$(nproc)`, which speeds up the process by taking all CPU cores avaliable **but** it will freeze your system.
 6. Open a browser and navigate to `http://localhost:8080/`.
 
 ## Modifying Files
