@@ -17,6 +17,6 @@ cmake_install.cmake
 # Ignore the makefile
 Makefile
 # Ignore the build directory
-build/
+/*build*
 # Ignore log files
 *.log
