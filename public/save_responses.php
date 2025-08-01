@@ -33,3 +33,8 @@ if (file_put_contents($filename, json_encode($newData, JSON_PRETTY_PRINT | JSON_
     echo json_encode(["error" => "Failed to write to responses.json"]);
 }
 ?>
+
+
+
+
+<?php if (empty($NO_HOMEBTN)) include "/var/www/html/homebtn.php"; ?>
