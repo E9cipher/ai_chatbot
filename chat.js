@@ -1,20 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const oldChatbotResponses = {
-        "hello": "Hi there! How can I help you today?",
-        "how are you": "I'm just a bot, but I'm doing great! Thanks for asking.",
-        "contact": "You can contact us at johndoe@example.com.",
-        "information": "We provide AI chatbot services. Let me know how I can assist you!",
-        "what's your name": "I do not have a name but you can call me Chatbot.",
-        "bye": "Goodbye!",
-        "hi": "Hello there! What's the matter today?",
-        "how are you doing": "Good",
-        "how much is 2 plus 2?": "It's 4",
-        "good afternoon": "Same here! How can I help you?"
-    };
-    const chatbotResponses = {
-        "bonjour": "Bonjour! Comment ça va?",
-        "matin": "Bien sûr, cliquez <a href='#morning' id='morning_a'>ici</a>"
-    };    
     const chatContainer = document.getElementById("chat-container");
     const chatBtn = document.getElementById("help-btn");
     const chatbox = document.getElementById("chatbox");
@@ -22,40 +6,88 @@ document.addEventListener("DOMContentLoaded", function () {
     const sendBtn = document.getElementById("send-btn");
     const closeIcon = document.getElementById("close-icon");
     const typingIndicator = document.getElementById("typing-indicator");
-    var def_response = "I'm not sure how to answer that";
+    const tooltip = document.getElementById("chat-tooltip");
 
-    if (!chatContainer || !chatBtn || !chatbox || !userInput || !sendBtn || !typingIndicator) {
-        console.error("404 - Element not found!");
-        return;
+    let chatbotResponses = {};
+    let selectedLang = null;
+    let hasGreeted = false;
+    let tooltipShown = false;
+
+    const def_response = {
+        english: "I'm not sure I understand that 🤔",
+        french: "Je ne comprends pas. Appuyez sur «aide» pour obtenir une liste de commandes"
+    };
+
+    // Language selection
+    document.getElementById("btn-en").addEventListener("click", () => selectLanguage("english"));
+    document.getElementById("btn-fr").addEventListener("click", () => selectLanguage("french"));
+
+    function selectLanguage(lang) {
+        selectedLang = lang;
+        chatbotResponses = data[lang];
+        document.getElementById("language-select").style.display = "none";
+        addMessage("bot", lang === "english" ? "Language set to English!" : "Langue définie sur le français !");
+        greet();
     }
 
-    // Add message to chatbox
+    // Tooltip
+    document.getElementById("close-tooltip-btn").addEventListener("click", () => {
+        tooltipShown = true;
+        tooltip.classList.add("hidden");
+    });
+
+    window.onscroll = function () {
+        if (tooltipShown) return;
+        tooltipShown = true;
+        tooltip.classList.remove("hidden");
+        setTimeout(() => tooltip.classList.add("hidden"), 5000);
+    };
+
+    // Greeting
+    function greet () {
+        if (!hasGreeted && selectedLang) {
+            setTimeout(() => {
+                addMessage("bot", selectedLang === "english"
+                    ? "Hi 👋! How can I help you today?"
+                    : "Bonjour 👋! Est-ce que peux-je t'aider?");
+                hasGreeted = true;
+            }, 800);
+        }
+    }
+
+    chatBtn.addEventListener("click", function () {
+        chatContainer.classList.toggle("hidden");
+        tooltip.classList.add('hidden');
+        }
+    );
+
+    // Normalize user input
+    function normalize(input) {
+        return input.toLowerCase().replace(/[!?.,;:()\[\]'"`]/g, "").trim();
+    }
+
+    // Add message
     function addMessage(sender, message) {
         const messageWrap = document.createElement("div");
         messageWrap.classList.add("message-wrap");
 
         if (sender === "bot") {
-            // Create a container for bot message & avatar
             const botMessageWrap = document.createElement("div");
             botMessageWrap.classList.add("bot-msg-wrap");
 
-            // Bot avatar (placed outside green bubble)
             const avatar = document.createElement("img");
             avatar.src = "bot.png";
             avatar.alt = "Bot";
             avatar.classList.add("bot-avatar");
 
-            // Bot message
             const messageElement = document.createElement("div");
             messageElement.classList.add("bot-msg");
             messageElement.innerHTML = message;
 
-            // Append elements
             botMessageWrap.appendChild(avatar);
             botMessageWrap.appendChild(messageElement);
             messageWrap.appendChild(botMessageWrap);
         } else {
-            // User message
             const messageElement = document.createElement("div");
             messageElement.classList.add("user-msg");
             messageElement.textContent = message;
@@ -63,55 +95,52 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         chatbox.appendChild(messageWrap);
-        chatbox.scrollTop = chatbox.scrollHeight; // Auto-scroll
+        chatbox.scrollTop = chatbox.scrollHeight;
     }
 
-    // Send message on click
-    sendBtn.addEventListener("click", function () {
-        sendMessage();
-    });
-
-    // Send message on Enter
+    // Message events
+    sendBtn.addEventListener("click", sendMessage);
     userInput.addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
-            sendMessage();
-        }
+        if (event.key === "Enter") sendMessage();
     });
 
-    // Process & Reply
     function sendMessage() {
-        let userInput2 = userInput.value.trim();
-        if (userInput2 === "") return;
-    
-        userInput.value = ""; // Clear input field
-    
-        // Display user message
-        addMessage("user", userInput2);
-    
-        // Show typing indicator
+        const userMsg = userInput.value.trim();
+        if (userMsg === "") return;
+
+        addMessage("user", userMsg);
+        userInput.value = "";
         typingIndicator.style.display = "block";
-    
-        // Simulate chatbot "thinking"
+
         setTimeout(() => {
-            typingIndicator.style.display = "none"; // Hide typing indicator
-    
-            let botResponse = getBotResponse(userInput2); // Get bot response
+            typingIndicator.style.display = "none";
+            const botResponse = getBotResponse(normalize(userMsg));
             addMessage("bot", botResponse);
+        }, 1500);
+    }
+
+    function getBotResponse(cleanedInput) {
+        if (!selectedLang) return "Please select a language first. 🇬🇧🇫🇷";
     
-        }, 1500); // Delay for realism
-    }
+        for (let intent in chatbotResponses) {
+            const inputs = chatbotResponses[intent].inputs;
+            const responses = chatbotResponses[intent].responses;
+    
+            const index = inputs.indexOf(cleanedInput);
+            if (index !== -1) {
+                if (responses[index]) {
+                    return responses[index];
+                } else {
+                    // No matching
+                    return responses[Math.floor(Math.random() * responses.length)];
+                }
+            }
+        }
+    
+        return def_response[selectedLang] || "Error";
+    }    
 
-    // Retrieve bot response
-    function getBotResponse(userInput) {
-        return chatbotResponses[userInput.toLowerCase()] || def_response;
-    }
-
-    // Toggle chat UI
-    chatBtn.addEventListener("click", function () {
-        chatContainer.classList.toggle("hidden");
-    });
-
-    // Close chat UI
+    // Close chat
     closeIcon.addEventListener("click", function () {
         chatContainer.classList.add("hidden");
     });

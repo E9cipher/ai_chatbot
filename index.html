@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('authToken');
+            const username = localStorage.getItem('username');
+            const loginTime = localStorage.getItem("session_time");
+             
+            if (!token && !username) {
+                document.body.innerHTML = `
+                <div class="errorContainer">
+                    <h1 class="errorTitle">Access Denied</h1>
+                    <h2 class="errorSubtitle">No valid auth token found.</h2>
+                    <p class="errorP"><a href="./login.html">Login</a> to continue</p>
+                </div>
+                `;
+            }
+            
+            if (loginTime == 0) {
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('username');
+                localStorage.setItem("session_time", 3);
+            } else {
+                localStorage.setItem("session_time", loginTime-1);   
+            }
+
+            if (window.location.search) {
+                const clean = window.location.origin + window.location.pathname;
+                window.history.replaceState({}, document.title, clean);
+            }
+        });
+    </script>            
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Le blog d'Enric</title>
+    <title>My Blog</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://kit.fontawesome.com/822c48f9f0.js" crossorigin="anonymous"></script>
@@ -28,16 +59,22 @@
               'opsz' 24
             }
     </style>
-    <script src="chat.js" defer></script>
+    <script src="responses.js" defer></script>
+
+    <script src="chat.js" async="false"></script>
 </head>
 <body>
     <header>
         <nav class="navbar">
             <ul>
                 <li><a href="#"><i class="fa-solid fa-house"></i></a></li>
-                <li><a href="#">Début</a></li>
-                <li><a href="#morning">Les Matins</a></li>
-                <li><a href="#products">Table</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#intro">Intro</a></li>
+                <li><a href="#sect1">Section 1</a></li>
+                <li><a href="#sect2">Section 2</a></li>
+                <li><a href="#sect3">Section 3</a></li>
+                <li><a href="#sect4">Section 4</a></li>
+                <li><a href="#contact">Footer</a></li>
                 <!--<li><a href="#whyus">Why choose us?</a></li>
                 <li><a href="#sponsors">Sponsors</a></li>-->
             </ul>
@@ -46,13 +83,27 @@
     <main>
         <!-- CHATBOT -->
         <button id="help-btn" class="help-btn" type="button" title="Chatbot"><span class="material-symbols-outlined">chat</span></button>
+        <div id="chat-tooltip" class="chat2ui hidden">
+            <span class="text">Hey there 👋. Something I can help you with?</span>
+            <i class="fa-solid fa-circle-xmark" id="close-tooltip-btn"></i>
+        </div>
+        
 
         <div id="chat-container" class="hidden">
             <div id="chat-header" class="chat-header">
                 <h2>Chatbot</h2>
             </div>
             <button id="close-icon" class="close" title="Close" type="button"><i class="fa-solid fa-xmark"></i></button>
-            <div id="chatbox"></div>
+            <div id="chatbox">
+                <div id="language-select">
+                    <span>Choose a language | Choisir une langue</span>
+                    <br><br>
+                    <button id="btn-en">English</button>
+                    <button id="btn-fr">Français</button>
+                    <!--<button id="btn-es">Español</button>
+                    <button id="btn-ca">Català</button>-->
+                  </div>
+            </div>
             <div id="typing-indicator" class="typing-indicator">typing...</div>
             <div class="under">
                 <input type="text" id="user-input" placeholder="Type a message...">
@@ -62,7 +113,7 @@
         <!-- BACK TO TOP BTN -->
         <!-- <button id="gotop" title="Go top" type="button"><i class="fa-solid fa-chevron-up"></i></button> -->
         <!--<script>
-                let backToTopBtn = document.getElementById("gotop");
+                let chatbotBtn = document.getElementById("help-btn");
             
                 // Show/hide button when scrolling
                 window.onscroll = function() {
@@ -80,109 +131,162 @@
             </script>-->
         <section class="myname">
             <div class="text">
-                <h1 class="title">Le Blog d'Enric</h1>
-                <h2 class="subtitle">Oui, c'est moi!</h2>
+                <h1 class="title">My blog!</h1>
+                <h2 class="subtitle">Chatbot included!</h2>
                 <!-- <button class="godown">Click me!</button> -->
-                <button class="godown btn"><a href="#morning"><i class="fa-solid fa-chevron-down fa-beat-fade"></i></a></button>
+                <button class="godown btn"><a href="#intro"><i class="fa-solid fa-chevron-down fa-beat-fade"></i></a></button>
             </div>
         </section>
-        <section class="bodysection" style="background-color: aquamarine;" id="morning">
+        <div class="drawing">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,160L48,138.7C96,117,192,75,288,80C384,85,480,139,576,149.3C672,160,768,128,864,106.7C960,85,1056,75,1152,69.3C1248,64,1344,64,1392,64L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+        </div>
+        
+        <section class="bodysection" id="intro">
             <div class="pctitle">
-                <h1 class="ptitle">Les Matins</h1>
+                <h1 class="ptitle">Introduction</h1>
+            </div>
+            <div class="pctext">
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet dicta consectetur quod, inventore hic saepe velit labore iusto quasi necessitatibus deserunt optio dolor sed voluptate pariatur ea earum aliquid? Blanditiis.
+                Sunt vero iure aspernatur consectetur eligendi quo. Omnis cupiditate nam aliquid ducimus, eaque at dolor soluta, tempora ex veniam vel nulla culpa exercitationem molestiae, repellat aspernatur distinctio nihil qui esse!
+                Magnam doloremque fuga explicabo ipsa accusantium tempore dolores rerum! Natus saepe nam quod nostrum expedita consequatur quaerat doloremque deserunt voluptas velit, ipsam fuga, quae, facilis magnam voluptatibus maxime doloribus assumenda.</p>
+            </div>
+            <div class="break"></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Table</th>
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                        <th>Column 3</th>
+                        <th>Column 4</th>
+                        <th>Column 5</th>
+                        <th>Column 6</th>
+                        <th>Column 7</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th rowspan="1">Row 1</th>
+                        <td colspan="5">Those are 5 cells together</td>
+                        <td colspan="2">And 2 more here</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="1">Row 2</th>
+                        <td colspan="7">And that's a whole row, 7 cells in a one</td>
+                    </tr>
+                    <tr>
+                        <th>Row 3</th>
+                        <td colspan="7">That'd be another whole row, with 7 cells again</td>
+                    </tr>
+                    <tr>
+                        <th>Row 4</th>
+                        <td colspan="5">And same as before, 5 cells here</td>
+                        <td colspan="2">and 2 here</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="bodysection" style="background-color: aquamarine;" id="sect1">
+            <div class="pctitle">
+                <h1 class="ptitle">Section 1</h1>
             </div> 
-            <div class="pctext" id="morning">
+            <div class="pctext">
                 <div class="flex">
                     <div class="left">
-                        <p>Le matin, je me lève à six heures. Je suis trés fatigué. Je vais à la salle de bain et je me lave la visage. Après, je prends le pétit déjeuner avec ma mère et ma soeur. Je prends des céréales avec du lait. Après ça, je me brosse les dents et je m'habille.
-                            Puis j'aide ma mère avec les sandwichs et le goûter.
-                            Ensuite je prépare mes affaires. Je prends mon sac, mon ordinatoeur et mes livres. Je vais au voiture et je régarde l'heure. Il est sept heures quand je quitte la maison. Ma mère me dépose devant l'ecole et j'entre.
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum nesciunt molestiae asperiores itaque vitae ad, distinctio velit reprehenderit consectetur vel est obcaecati minima quibusdam natus, animi amet accusantium quos debitis.
+                        At fuga nihil ducimus qui quisquam perspiciatis ad temporibus quos ex placeat quaerat nulla, cum, dignissimos ullam ipsa quia sed ea aliquid culpa minima, error quibusdam atque? Natus, assumenda eos.
+                        Totam explicabo repellendus sapiente at tempore nihil, atque amet quae accusantium voluptatum. Quas eum alias dolores fugiat architecto qui iure, aliquam tenetur iste corrupti beatae dicta nulla quia voluptates dolorem?
                         </p>
                     </div>
                     <div class="right">
-                        <img src="school.jpg" alt="School Graphic">
+                        <img src="photo1.jpg" alt="image">
+                        <caption>Photo by <a href="https://unsplash.com/@designmesk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Marek Levák</a> on <a href="https://unsplash.com/photos/a-praying-mantis-rests-on-a-mossy-surface-3uI3rwEK2rM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+                        </caption>
                     </div>
                 </div>
                 
             </div>
         </section>
         <!-- BEGIN SECTION 2 -->
-        <section class="bodysection" id="products">
+        <section class="bodysection" id="sect2" style="background-color: cadetblue;">
             <div class="pctitle">
-                <h1 class="ptitle">Ma Routine</h1>
+                <h1 class="ptitle">Section 2</h1>
             </div>
             <div class="pctext">
-                <p>Bonjour tout le monde! Je suis Enric et je 13 ans. Aujourd'hui je vous presente <b>ma routine</b>. J'espère que vous l'apprécierez autant que moi!</p>
+                <div class="flex">
+                    <div class="left">
+                        <img src="photo2.jpg" alt="">
+                        <caption>Photo by <a href="https://unsplash.com/@elmaurer?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Elias Maurer</a> on <a href="https://unsplash.com/photos/a-white-heron-walks-delicately-in-the-water-UYUS0YEdTC4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+                    </caption>
+                    </div>
+                    <div class="right">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius facilis ipsa debitis ipsum cumque porro nesciunt aliquam fuga unde assumenda facere cum, quis odit distinctio quam a totam ad ratione.
+                        Minima optio dolor tempore, earum sed mollitia ullam iste? Minus numquam, nam vitae, laboriosam odit quae illo, qui expedita ullam eius dolorem obcaecati fugit nemo at aspernatur quod quas necessitatibus?
+                        Dolorem aliquam sit, illo ad modi ratione doloremque quam! Voluptate soluta excepturi, placeat cupiditate exercitationem expedita debitis necessitatibus, reprehenderit ab nobis itaque voluptatem ipsa suscipit? Voluptatem pariatur aspernatur adipisci ipsam?</p>
+                    </div>
+                </div>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Ma Routine</th>
-                        <th>Lundi</th>
-                        <th>Mardi</th>
-                        <th>Mercredi</th>
-                        <th>Jeudi</th>
-                        <th>Vendredi</th>
-                        <th>Samedi</th>
-                        <th>Dimanche</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th rowspan="1">Matin</th>
-                        <td colspan="5">Je me lève à 6h</td>
-                        <td colspan="2">Je me lève à 9h</td>
-                    </tr>
-                    <tr>
-                        <th rowspan="1">Midi</th>
-                        <td colspan="5">Bonjour -1</td>
-                        <td colspan="2">Bonjour 0</td>
-                    </tr>
-                    <tr>
-                        <th>Après-midi</th>
-                        <td>Bonjour</td>
-                        <td>Bonjour 2</td>
-                        <td>Bonjour 3</td>
-                        <td>Bonjour 4</td>
-                        <td>Bonjour 5</td>
-                        <td>Bonjour 6</td>
-                        <td>Bonjour 7</td>
-                    </tr>
-                    <tr>
-                        <th>Soir</th>
-                        <td colspan="5">Je reentre chez moi à 18h</td>
-                        <td>Bonjour 8</td>
-                        <td>Bonjour 9</td>
-                    </tr>
-                </tbody>
-            </table>
         </section>
-        
+        <section class="bodysection" id="sect3" style="background-color: darksalmon;">
+            <div class="pctitle">
+                <h1 class="ptitle">Section 3</h1>
+            </div>
+            <div class="pctext">
+                <div class="flex">
+                    <div class="left">
+                        <img src="photo3.jpg" alt="Photo">
+                        <caption>Photo by <a href="https://unsplash.com/@vladzh?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Vladislav Zakharevich</a> on <a href="https://unsplash.com/photos/starry-night-sky-over-a-calm-mountain-lake-Nq1yYSYCKAQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+                    </caption>
+                    </div>
+                    <div class="right">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit fugiat nam saepe delectus, labore dolor, aperiam vitae aut pariatur numquam perferendis officiis impedit ea. Illo vero tempore tenetur rerum temporibus?
+                        Ex vitae nisi quibusdam sed maxime modi consequuntur provident quasi ipsum dolorum! Et dolor aspernatur sint voluptates animi a delectus voluptatum, voluptate obcaecati alias earum, iusto id, impedit dicta odio!
+                        Praesentium aperiam molestiae error voluptate ut maiores similique tenetur quibusdam sunt. Non, ipsum iste quae doloribus quos quo ullam voluptatum exercitationem explicabo eligendi magnam libero aut hic fugiat in corporis.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="bodysection" id="sect4" style="background-color: lightslategray;" style="height: 90vh;">
+            <div class="pctitle">
+                <h1 class="ptitle">Section 4</h1>
+            </div>
+            <div class="pctext">
+                <div class="flex">
+                    <div class="left">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem at illo nam eligendi alias dicta, quibusdam mollitia nulla quas delectus tempora aliquam eius ratione fugit vitae pariatur necessitatibus enim veniam!
+                        Debitis distinctio quae vel recusandae error incidunt voluptate accusamus repellat nemo, molestias iusto! Distinctio quod accusamus sed aliquam debitis ex omnis pariatur neque quaerat adipisci aliquid, iure quasi totam nobis.
+                        Accusantium reprehenderit consectetur nesciunt consequatur quidem iusto odio voluptatem neque, corporis totam aliquid! Laborum ducimus dolorem eveniet voluptatum commodi harum saepe eum cumque perspiciatis maiores tenetur veniam eligendi, quod hic?</p>
+                    </div>
+                    <div class="right">
+                        <img src="photo4.jpg" alt="Photo">
+                        <caption>Photo by <a href="https://unsplash.com/@coombez?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Doncoombez</a> on <a href="https://unsplash.com/photos/birds-appear-to-be-touching-beaks-in-this-photograph-JYUqloeOu2U?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+                    </caption>
+                    </div>
+                </div>
+            </div>
+        </section>
         <footer class="contactus" id="contact">
-            <div class="fgrid">
-                <div class="fitem">
-                    <h3>Contact</h3>
-                    <p>Phone: +34 123 456 789</p>
-                    <p>Email:johndoe@example.com </p>
-                    <p>Address: 1234 Main St, Barcelona, Spain</p>
+            <h1>And that's it!</h1>
+            <p>This would be a text to thank the user for visiting the site</p>
+            <!-- This ain't working
+            <button class="like_btn" id="like_btn">I've liked it</button>
+            <div class="likes" id="likes">
+                <p>Until now, I have <span id="likes_txt">
+                    <script>
+                        let likes = localStorage.getItem("likes");
+                        const btn = document.getElementById("like_btn").addEventListener("click", () => {
+                            localStorage.setItem("likes", likes + 1);
+                            likes += 1;
+                        });
+                        var span = document.getElementById("likes_txt");
+                        span.textContent = likes;
+                    </script>
+                </span> likes.</p>
             </div>
-            <div class="fitem">
-                <h3>Follow us</h3>
-                <p><a href="https://www.facebook.com/@johndoe" target="_blank"><i class="fa-brands fa-facebook"></i> Facebook</a></p>
-                <p><a href="https://www.twitter.com/@johndoe" target="_blank"><i class="fa-brands fa-twitter"></i> Twitter</a></p>
-                <p><a href="https://www.instagram.com/@johndoe" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a></p>
-            </div>
-            <div class="fitem">
-                <form action="#" method="post" id="form">
-                    <h3>Subscribe</h3>
-                    <p>Subscribe to our newsletter to receive the latest news and updates.</p>
-                    <input type="email" name="email" id="input" placeholder="Enter your email" required>
-                    <button type="submit" class="btn">Subscribe!</button>
-                </form>
-                
-            </div>
+        -->
         </footer>
     </main>
-    <script>
+    <!--<script>
         var form = document.getElementById("form");
         form.addEventListener("submit", function(e) {
             e.preventDefault();
@@ -201,6 +305,6 @@
                 form.reset();
             });
         }
-    </script>
+    </script>-->
 </body>
 </html>

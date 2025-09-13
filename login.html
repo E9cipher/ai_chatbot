@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="login">
+    <form id="loginForm" method="GET" class="login">
+        <input type="text" id="username" class="login" name="username" placeholder="Username" autocomplete="none" required>
+        <input type="password" id="passwd" class="login" name="password" placeholder="Password" autocomplete="none" required>
+        <button type="submit" class="login">Login</button>
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            function msg () {
+                Swal.fire({
+                    title: "Incorrect Credentials",
+                    text: "Incorrect username/password",
+                    icon: "error"
+                });
+            }
+            const correctUser = "admin";
+            const correctPasswd = "incorrecta";
+            const username = document.getElementById('username').value;
+            const passwd = document.getElementById('passwd').value;
+            if (correctUser === username && correctPasswd === passwd) {
+                const now = Date.now();
+                const raw = username + now;
+
+                let token = "";
+                for (let i = 0; i < raw.length; i++) {
+                    token += raw.charCodeAt(i).toString(36);
+                }
+
+                // Store in localStorage
+                localStorage.setItem('authToken', token);
+                localStorage.setItem('username', username);
+                window.location.href = "./index.html";
+            } else {
+                msg();
+                setTimeout(() => {
+                    console.log("Alert delay");
+                }, "1000");
+                window.location.href = "./login.html";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

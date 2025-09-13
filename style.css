@@ -34,6 +34,49 @@ body {
     background-color: #0056b3;
 }
 
+#chat-tooltip {
+    position: fixed;
+    bottom: 70px;
+    right: 60px;
+    background: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-family: 'Andada Pro', serif;
+    opacity: 1;
+    pointer-events: auto;
+    animation: fadein 0.6s ease-in;
+    z-index: 999;
+}
+  
+#chat-tooltip.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+  
+#chat-tooltip i {
+    position: fixed;
+    bottom: 97px;
+    right: 375px;
+    color: black;
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: 0.2s ease-in all;
+    opacity: 1;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+#chat-tooltip i:hover {
+    font-size: 1.4em;
+}
+
+#chat-tooltip i.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
 #chat-container {
     position: fixed;
     bottom: 80px;
@@ -132,6 +175,28 @@ body {
     font-family: 'Andada Pro', serif;
 }
 
+#chat-container #chatbox span {
+    font-family: 'Andada Pro', serif;
+    font-size: 18px;
+}
+
+#chat-container #chatbox button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: .3s ease-in-out all;
+    font-family: 'Andada Pro', serif;
+    font-weight: 600;
+    margin: 4px 0;
+}
+
+#chat-container #chatbox button:hover {
+    background-color: #0056b3;
+}
+
 #chat-container #chatbox .message-wrap {
     display: flex;
     width: 100%;
@@ -154,15 +219,27 @@ body {
 }
 
 #chat-container #chatbox .message-wrap .bot-msg-wrap .bot-msg {
-    display: flex;
+    display: inline-block;
     align-items: center;
-    gap: 10px;
     background-color: #28a745;
     color: white;
     padding: 8px 12px;
     border-radius: 15px;
     margin: 5px 0;
     max-width: 70%;
+}
+
+#chat-container #chatbox .message-wrap .bot-msg-wrap .bot-msg a {
+    color: #0000EE;
+    text-decoration: none;
+}
+
+#chat-container #chatbox .message-wrap .bot-msg-wrap .bot-msg a:hover {
+    text-decoration: underline;
+}
+
+#chat-container #chatbox .message-wrap .bot-msg-wrap .bot-msg a:visited {
+    color: #0000EE;
 }
 
 #chat-container #chatbox .message-wrap .bot-msg-wrap img {
@@ -342,7 +419,7 @@ body #train-section #response-list li td#answer {
     }
 }
 
-@keyframes genie-close {
+/*@keyframes genie-close {
     0% {
         transform: scale(1);
         opacity: 1;
@@ -356,4 +433,4 @@ body #train-section #response-list li td#answer {
         opacity: 0;
         transform: scaleY(0.1) scaleX(0.2) translate(var(--x), var(--y));
     }
-}
+}*/
