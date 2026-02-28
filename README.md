@@ -39,16 +39,6 @@ and all of the recommended packages from the ones above. Crow must be installed 
        cmake .. && make
        make install
        
-5. Run these instructions
-
-       mkdir info 
-       mv README.md backend/README.md frontend/README.md info/
-       cd ai_chatbot/
-       rm -rf build
-       mkdir build && cd build
-       cmake ../backend
-       make
-       ./chatbot
    
    You must make sure you have the requirements shown above. Else, the project won't serve properly. Even though it seems strange, you **must** remove the `build` directory and create it again.
    Exit process with <kbd>Ctrl</kbd> <kbd>C</kbd>.
